@@ -775,8 +775,11 @@ public class RpcResponseMessageHandler extends SimpleChannelInboundHandler<RpcRe
 }
 ```
 
+##### RPC调流程
 
+客户端发起RPC调用 (client出栈) -> 自定义协议编码 (client出栈) -> 日志打印 (client出栈)  -> 请求进入服务器
 
+服务器接收RPC请求 (server入栈) -> 帧解码防止粘包/半包 (server入栈） -> 日志打印  (server入栈)  -> 自定义协议解码 (server入栈)  -> RPC请求处理 (server入栈)  -> 返回响应（server出栈） ->  自定义协议编码（server出栈 -> 日志打印（server出栈 -> 响应进入客户端（client入栈） -> 帧解码 (client入栈） -> 日志打印 (client入栈） -> 自定义协议解码 (client入栈） -> 处理响应 (client入栈）
 
 
 #### 5）客户端代码 第二版
